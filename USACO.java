@@ -59,12 +59,19 @@ public class USACO{
         if(map[r][c]>elev) map[r][c]=elev;
       }
     }
+  }
 
+
+  public static int silver(String filename) throws FileNotFoundException{
+    File f = new File(filename);
+    Scanner in = new Scanner(f);
+
+    return 1;//so that it compiles
   }
 
   public static void main(String args[]){
     try{
-      System.out.println(bronze("./testCases/makelake.1.in"));
+      System.out.println(bronze("./testCases/makelake.5.in"));
     }
     catch(FileNotFoundException e){
       System.out.println("File not found");
