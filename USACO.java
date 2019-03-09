@@ -63,15 +63,34 @@ public class USACO{
 
 
   public static int silver(String filename) throws FileNotFoundException{
-    File f = new File(filename);
-    Scanner in = new Scanner(f);
+    Scanner in = new Scanner(new File(filename));
+    int rows = Integer.parseInt(in.next());
+    int cols = Integer.parseInt(in.next());
+    int secs = Integer.parseInt(in.next());
 
+    System.out.println(rows);
+    System.out.println(cols);
+    System.out.println(secs);
+
+    boolean[][] field = new boolean[rows][cols];
+    for(int r = 0; r < rows; r++){
+      String line = in.nextLine();
+      for(int c = 0; c < cols; c++){
+        field[r][c]= line.charAt(c)!='*';
+      }
+    }
+
+    int startR = Integer.parseInt(in.next())-1;
+    int startC = Integer.parseInt(in.next())-1;
+    int endR = Integer.parseInt(in.next())-1;
+    int endC = Integer.parseInt(in.next())-1;
     return 1;//so that it compiles
   }
 
   public static void main(String args[]){
     try{
-      System.out.println(bronze("./testCases/makelake.5.in"));
+      //System.out.println(bronze("./testCases/makelake.5.in"));
+      System.out.println(silver("./testCases/ctravel.1.in"));
     }
     catch(FileNotFoundException e){
       System.out.println("File not found");
