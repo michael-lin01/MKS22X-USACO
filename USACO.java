@@ -64,18 +64,25 @@ public class USACO{
 
   public static int silver(String filename) throws FileNotFoundException{
     Scanner in = new Scanner(new File(filename));
-    int rows = Integer.parseInt(in.next());
-    int cols = Integer.parseInt(in.next());
-    int secs = Integer.parseInt(in.next());
+    String line = in.nextLine();
+    String[] args = line.split(" ");
 
+    int rows = Integer.parseInt(args[0]);
+    int secs = Integer.parseInt(args[1]);
+    int cols = Integer.parseInt(args[2]);
+    /*
     System.out.println(rows);
     System.out.println(cols);
     System.out.println(secs);
+    */
 
     boolean[][] field = new boolean[rows][cols];
+
+
     for(int r = 0; r < rows; r++){
-      String line = in.nextLine();
-      for(int c = 0; c < cols; c++){
+      line = in.nextLine();
+      System.out.println(line);
+      for(int c = 0; c < line.length(); c++){
         field[r][c]= line.charAt(c)!='*';
       }
     }
@@ -84,13 +91,50 @@ public class USACO{
     int startC = Integer.parseInt(in.next())-1;
     int endR = Integer.parseInt(in.next())-1;
     int endC = Integer.parseInt(in.next())-1;
-    return 1;//so that it compiles
+
+    int[][] nums1 = new int[rows][cols];
+    int[][] nums2 = new int[rows][cols];
+    nums1[startR][startC] = 1; //so surrounding tiles will get value of 1 when sec = 1
+
+    for(int sec = 0; sec < secs; sec++){
+      for(int r = 0; r < rows; r++){
+        for(int c = 0; c < cols; c++){
+          if(field[r][c]){ //check surrounding tiles if tile is not a tree - add the value of all surrounding tile
+            if(r>0) nums2[r][c]+=nums1[r-1][c];
+            if(c>0) nums2[r][c]+=nums1[r][c-1];
+            if(r<rows-1) nums2[r][c]+=nums1[r+1][c];
+            if(c<cols-1) nums2[r][c]+=nums1[r][c+1];
+          }
+        }
+      }
+      for(int r = 0; r < rows; r++){
+        for(int c = 0; c < cols; c++){
+          nums1[r][c]=0; //reset the old board
+        }
+      }
+      //swap boards
+      int[][]temp = nums1;
+      nums1 = nums2;
+      nums2=temp;
+      /*
+      String ans = "";
+      for(int r = 0; r < rows; r++){
+        for(int c = 0; c < cols;c++){
+          if(nums1[r][c]<10) ans += " "+nums1[r][c]+" ";
+          else ans+= nums1[r][c]+" ";
+        }
+        ans+="\n";
+      }
+      System.out.println(ans);
+      */
+    }
+    return nums1[endR][endC];
   }
 
   public static void main(String args[]){
     try{
       //System.out.println(bronze("./testCases/makelake.5.in"));
-      System.out.println(silver("./testCases/ctravel.1.in"));
+      System.out.println(silver("./testCases/ctravelMOD.1.in"));
     }
     catch(FileNotFoundException e){
       System.out.println("File not found");
