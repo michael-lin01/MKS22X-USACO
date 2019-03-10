@@ -68,8 +68,8 @@ public class USACO{
     String[] args = line.split(" ");
 
     int rows = Integer.parseInt(args[0]);
-    int secs = Integer.parseInt(args[1]);
-    int cols = Integer.parseInt(args[2]);
+    int cols = Integer.parseInt(args[1]);
+    int secs = Integer.parseInt(args[2]);
     /*
     System.out.println(rows);
     System.out.println(cols);
@@ -81,7 +81,7 @@ public class USACO{
 
     for(int r = 0; r < rows; r++){
       line = in.nextLine();
-      System.out.println(line);
+      //System.out.println(line);
       for(int c = 0; c < line.length(); c++){
         field[r][c]= line.charAt(c)!='*';
       }
